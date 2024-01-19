@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DevtoolsService } from './devtools.service';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,8 @@ export class AppComponent {
   /* Elemento que vamos a imprimir en consola */
   elemento_relleno: Array<Array<number>> = [];
 
-  constructor() {
+  constructor(private devtools: DevtoolsService) {
+    devtools.init();
     let aux: Array<number> = [];
     for (let i = 0; i < 20; i++) {
       aux.push(i * 997);
