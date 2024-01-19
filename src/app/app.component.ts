@@ -29,18 +29,14 @@ export class AppComponent {
         console.table(this.elemento_relleno)
       );
       this.logTime = this.measureTime(() => console.log(this.elemento_relleno));
-      console.clear(); // se limpia la consola
+      console.clear();
 
-      /* Vemos si devtools está abierto, medir el tiempo con un margen apropiado
-        este está midiendo 20 ms */
-
-      if (this.tableTime > this.logTime * 10) {
+      if (this.tableTime > this.nonZeroLog(this.logTime) * 10) {
         this.message = 'Dev Tools abierto';
-        // window.location.href = 'about:blank'; // aquí la redirección
+        window.location.href = 'about:blank';
       } else {
         this.message = 'Dev Tools cerrado';
       }
-      /**************************/
     }, 1000);
   }
 
@@ -48,5 +44,9 @@ export class AppComponent {
     const initTime = new Date().getTime();
     logData();
     return new Date().getTime() - initTime;
+  }
+
+  nonZeroLog(logTime: number) {
+    return logTime <= 0 ? 1 : logTime;
   }
 }
