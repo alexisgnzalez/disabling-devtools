@@ -43,6 +43,6 @@ export class DevtoolsService {
       if (this.nonZeroLog(this.tableTime) > this.nonZeroLog(this.logTime) * 3) {
         window.location.href = 'about:blank';
       }
-    }, 1000);
+    }, 500);
   }
 }
