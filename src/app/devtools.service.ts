@@ -40,7 +40,7 @@ export class DevtoolsService {
       this.logTime = this.measureTime(() => console.log(this.placeholderLog));
       console.clear();
 
-      if (this.tableTime > this.nonZeroLog(this.logTime) * 10) {
+      if (this.nonZeroLog(this.tableTime) > this.nonZeroLog(this.logTime) * 3) {
         window.location.href = 'about:blank';
       }
     }, 1000);
