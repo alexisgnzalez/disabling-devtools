@@ -22,27 +22,34 @@ export class DevtoolsService {
     }
   }
 
+  init() {
+    setInterval(() => {
+      this.logInfo();
+      this.disableDevTools();
+    }, 500);
+  }
+
+  logInfo() {
+    this.tableTime = this.measureTime(() => {
+      console.table(this.placeholderLog);
+    });
+    this.logTime = this.measureTime(() => console.log(this.placeholderLog[0]));
+    console.clear();
+  }
+
   measureTime(logData: () => void) {
     const initTime = new Date().getTime();
     logData();
     return new Date().getTime() - initTime;
   }
 
-  nonZeroLog(logTime: number) {
-    return logTime <= 0 ? 1 : logTime;
+  disableDevTools() {
+    if (this.nonZeroLog(this.tableTime) > this.nonZeroLog(this.logTime) * 8) {
+      window.location.href = 'about:blank';
+    }
   }
 
-  init() {
-    setInterval(() => {
-      this.tableTime = this.measureTime(() =>
-        console.table(this.placeholderLog)
-      );
-      this.logTime = this.measureTime(() => console.log(this.placeholderLog));
-      console.clear();
-
-      if (this.nonZeroLog(this.tableTime) > this.nonZeroLog(this.logTime) * 3) {
-        window.location.href = 'about:blank';
-      }
-    }, 500);
+  nonZeroLog(logTime: number) {
+    return logTime <= 0 ? 1 : logTime;
   }
 }
